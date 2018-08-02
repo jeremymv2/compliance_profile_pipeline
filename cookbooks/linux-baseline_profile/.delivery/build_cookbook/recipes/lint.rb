@@ -7,7 +7,7 @@ profile_name='acme-linux-baseline'
 
 execute "lint profile #{profile_name}" do
   cwd "#{workflow_workspace_repo}/files/default"
-  command "inspec check #{profile_name}"
+  command "inspec check --diagnose #{profile_name}"
   live_stream true
   ignore_failure false
   only_if { workflow_stage?('verify') }

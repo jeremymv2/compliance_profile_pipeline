@@ -248,9 +248,12 @@ Finally you are ready to push your changes through the Pipeline!
 Don't forget to bump the Profile version in [files/default/acme-linux-baseline/inspec.yml](https://github.com/jeremymv2/compliance_profile_pipeline/blob/master/cookbooks/linux-baseline_profile/files/default/acme-linux-baseline/inspec.yml) if necessary.
 
 ```
+delivery setup --server=DELIVERY_SERVER_IP_ADDR --ent=ENTERPRISE --org=ORGANIZATION --user=USERNAME
+cd linux-baseline_profile
 # bump version in acme-linux-baseline/inspec.yml
 git add -u
 git commit -sm "an important change message"
+delivery init
 delivery review
 ```
 
