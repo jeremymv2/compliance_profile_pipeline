@@ -33,7 +33,7 @@ mkdir -p files/default
 inspec init profile acme-linux-baseline
 ```
 
-The result will be something like:
+The result will be:
 
 ```
 files/default/
@@ -62,7 +62,7 @@ depends:
     compliance: admin/linux-baseline
 ```
 
-The upstream `linux-baseline` profile exists on our Chef Automate Compliance asset store.
+The upstream `linux-baseline` profile exists in our Chef Automate Compliance asset store.
 
 ## Local Development
 
@@ -86,7 +86,7 @@ end
 
 ### Test Kitchen + Inspec
 
-In order to test these changes on a taret system we can use [kitchen inspec](https://github.com/inspec/kitchen-inspec)
+In order to test these changes on a target system we can use [kitchen inspec](https://github.com/inspec/kitchen-inspec)
 
 Modify the `linux-baseline_profile` cookbook's [.kitchen.yml](https://github.com/jeremymv2/compliance_profile_pipeline/blob/master/cookbooks/linux-baseline_profile/.kitchen.yml) and choose a suitable target OS.
 
@@ -109,9 +109,9 @@ suites:
 ```
 
 You may find that you wish to ensure the profile works on a realistic set up
-for your organiation. Therefore, you can choose to include recipes to configure
+for your organization. To do so, you can choose to include recipes to configure
 the test kitchen node. You will of course have to declare the dependencies
-in the cookbook `metadata.rb`.
+in the cookbook [metadata.rb](https://github.com/jeremymv2/compliance_profile_pipeline/blob/master/cookbooks/linux-baseline_profile/metadata.rb)
 
 The [kitchen.rb](https://github.com/jeremymv2/compliance_profile_pipeline/blob/master/cookbooks/linux-baseline_profile/recipes/kitchen.rb) recipe.
 
@@ -138,7 +138,7 @@ to fetch the upstream `linux-baseline` Profile from the Compliance asset store.
 inspec compliance login https://automate-server.test --ent='brewinc' --user='admin' --insecure --dctoken='the-token'
 ```
 
-Run Test Kitchen!
+Run [Test Kitchen](https://kitchen.ci/)
 
 ```
 kitchen converge
@@ -181,7 +181,7 @@ We skip all [Phases](https://docs.chef.io/workflow.html#pipelines) except:
 
 In order to implement those phases we'll modify the `linux-baseline_profile` build cookbook's recipes.
 
-[.delivery/build_cookbook/recipes/lint.rb](https://github.com/jeremymv2/compliance_profile_pipeline/blob/master/cookbooks/linux-baseline_profile/.delivery/build_cookbook/recipes/lint.rb)
+Lint [.delivery/build_cookbook/recipes/lint.rb](https://github.com/jeremymv2/compliance_profile_pipeline/blob/master/cookbooks/linux-baseline_profile/.delivery/build_cookbook/recipes/lint.rb)
 
 ```
 #
@@ -200,13 +200,13 @@ execute "lint profile #{profile_name}" do
 end
 ```
 
-[.delivery/build_cookbook/recipes/publish.rb](https://github.com/jeremymv2/compliance_profile_pipeline/blob/master/cookbooks/linux-baseline_profile/.delivery/build_cookbook/recipes/publish.rb)
+Publish [.delivery/build_cookbook/recipes/publish.rb](https://github.com/jeremymv2/compliance_profile_pipeline/blob/master/cookbooks/linux-baseline_profile/.delivery/build_cookbook/recipes/publish.rb)
 
-** NOTE ** 
+**Note** 
 Please use a secure method of storing / retrieving the token.
 One method in Chef Workflow is with [Chef Vault](https://github.com/chef-cookbooks/delivery-sugar#using-get_chef_vault_data)
-Additionally, please use a dedicated Compliance service account instead of 'admin'
-for example, a user such as 'compliance-pipeline'
+Additionally, please use a dedicated Compliance service account instead of `admin`
+for example, a user such as `compliance-pipeline`
 
 ```
 #
@@ -243,9 +243,9 @@ end
 
 ## Run the Pipeline
 
-Finally you are ready to push the change through the Pipeline!
+Finally you are ready to push your changes through the Pipeline!
 
-Don't forget to bump the Profile version in `files/default/acme-linux-baseline/inspec.yml` if necessary.
+Don't forget to bump the Profile version in [files/default/acme-linux-baseline/inspec.yml](https://github.com/jeremymv2/compliance_profile_pipeline/blob/master/cookbooks/linux-baseline_profile/files/default/acme-linux-baseline/inspec.yml) if necessary.
 
 ```
 # bump version in acme-linux-baseline/inspec.yml
@@ -254,6 +254,6 @@ git commit -sm "an important change message"
 delivery review
 ```
 
-Have a Peer review the change and if appropriate click `Approve`
+Have a Peer review the change.
 
-Your `acme-linux-baseline` Profile will show up in the Compliance Asset store!
+When approved, your `acme-linux-baseline` Profile will show up in the Compliance Asset store!
