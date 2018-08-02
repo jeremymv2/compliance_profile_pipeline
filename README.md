@@ -200,6 +200,12 @@ end
 
 **.delivery/build_cookbook/recipes/publish.rb**
 
+** NOTE ** 
+Please use a secure method of storing / retrieving the token.
+One method in Chef Workflow is with [Chef Vault](https://github.com/chef-cookbooks/delivery-sugar#using-get_chef_vault_data)
+Additionally, please use a dedicated Compliance service account instead of 'admin'
+for example, a user such as 'compliance-pipeline'
+
 ```
 #
 # Cookbook:: build_cookbook
@@ -207,18 +213,12 @@ end
 #
 # Copyright:: 2018, The Authors, All Rights Reserved.
 
-## NOTE ##
-# Please use a secure method of storing / retrieving the token.
-# One method in Chef Workflow is with [Chef Vault](https://github.com/chef-cookbooks/delivery-sugar#using-get_chef_vault_data)
 compliance_token='the-token'
 profile_name='acme-linux-baseline'
 
 if workflow_stage?('build') then
   execute 'login to Automate Compliance service' do
     cwd workflow_workspace_repo
-    ## NOTE ##
-    # Please use a dedicated Compliance service account instead of 'admin'
-    # for example 'compliance-pipeline'
     command "inspec compliance login https://automate-server.test --insecure --user='admin' --ent='brewinc' --dctoken=\"#{compliance_token}\""
     ignore_failure false
   end
@@ -252,4 +252,6 @@ git commit -sm "an important change message"
 delivery review
 ```
 
+Have a Peer review the change and if appropriate click `Approve`
 
+Your `acme-linux-baseline` Profile will show up in the Compliance Asset store!
