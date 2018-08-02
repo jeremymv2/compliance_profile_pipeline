@@ -266,4 +266,4 @@ When approved, your `acme-linux-baseline` Profile will show up in the Compliance
 
 Should you want more verification prior to uploading the Profile, you could ensure the appropriate
 InSpec OS [package](https://downloads.chef.io/inspec/current) is installed and then run all the `inspec`
-commands as `/opt/inspec/embedded/bin/inspec ..`. Furthermore, you could also ensure an `inspec exec --reporter=json-min:./report.json --diagnose ..` also at least generates a valid json output file `report.json`.
+commands as `/opt/inspec/embedded/bin/inspec ..` to test that the Profile works with a specific InSpec version. Furthermore, you could also ensure an `inspec exec --reporter=json-min:./report.json --diagnose ..` at least generates a valid json output file to `report.json`.
