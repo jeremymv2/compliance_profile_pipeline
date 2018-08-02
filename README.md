@@ -216,9 +216,9 @@ profile_name='acme-linux-baseline'
 if workflow_stage?('build') then
   execute 'login to Automate Compliance service' do
     cwd workflow_workspace_repo
-## NOTE ##
-# Please use a dedicated Compliance service account instead of 'admin'
-# for example 'compliance-pipeline'
+    ## NOTE ##
+    # Please use a dedicated Compliance service account instead of 'admin'
+    # for example 'compliance-pipeline'
     command "inspec compliance login https://automate-server.test --insecure --user='admin' --ent='brewinc' --dctoken=\"#{compliance_token}\""
     ignore_failure false
   end
