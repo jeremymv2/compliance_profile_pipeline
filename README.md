@@ -45,7 +45,7 @@ files/default/
     └── libraries
 ```
 
-Since `acme-linux-baseline` will be a wrapper profile, we need to modify its `inspec.yml`
+Since `acme-linux-baseline` will be a wrapper profile, we need to modify its [inspec.yml](https://github.com/jeremymv2/compliance_profile_pipeline/blob/master/cookbooks/linux-baseline_profile/files/default/acme-linux-baseline/inspec.yml)
 to this:
 
 ```
@@ -69,7 +69,7 @@ The upstream `linux-baseline` profile exists on our Chef Automate Compliance ass
 As with any pipeline, the first step is local development.
 
 We will need to make our wrapper profile customizations next,
-in `files/default/acme-linux-baseline/controls/example.rb` we make some changes:
+in [files/default/acme-linux-baseline/controls/example.rb](https://github.com/jeremymv2/compliance_profile_pipeline/blob/master/cookbooks/linux-baseline_profile/files/default/acme-linux-baseline/controls/example.rb) we make some changes:
 
 ```
 # encoding: utf-8
@@ -88,7 +88,7 @@ end
 
 In order to test these changes on a taret system we can use [kitchen inspec](https://github.com/inspec/kitchen-inspec)
 
-Modify the `linux-baseline_profile` cookbook's `.kitchen.yml` and choose a suitable target OS.
+Modify the `linux-baseline_profile` cookbook's [.kitchen.yml](https://github.com/jeremymv2/compliance_profile_pipeline/blob/master/cookbooks/linux-baseline_profile/.kitchen.yml) and choose a suitable target OS.
 
 ```
 verifier:
@@ -112,6 +112,8 @@ You may find that you wish to ensure the profile works on a realistic set up
 for your organiation. Therefore, you can choose to include recipes to configure
 the test kitchen node. You will of course have to declare the dependencies
 in the cookbook `metadata.rb`.
+
+The [kitchen.rb](https://github.com/jeremymv2/compliance_profile_pipeline/blob/master/cookbooks/linux-baseline_profile/recipes/kitchen.rb) recipe.
 
 ```
 #
@@ -147,7 +149,7 @@ Repeat the above steps until you are confident your Profile is ready to publish.
 
 ## Setting up the Workflow Pipeline
 
-Modify the `linux-baseline_profile` cookbook's `.devliery/config.json`
+Modify the `linux-baseline_profile` cookbook's [.devliery/config.json](https://github.com/jeremymv2/compliance_profile_pipeline/blob/master/cookbooks/linux-baseline_profile/.delivery/config.json)
 
 ```
 {
@@ -179,7 +181,7 @@ We skip all [Phases](https://docs.chef.io/workflow.html#pipelines) except:
 
 In order to implement those phases we'll modify the `linux-baseline_profile` build cookbook's recipes.
 
-**.delivery/build_cookbook/recipes/lint.rb**
+[.delivery/build_cookbook/recipes/lint.rb](https://github.com/jeremymv2/compliance_profile_pipeline/blob/master/cookbooks/linux-baseline_profile/.delivery/build_cookbook/recipes/lint.rb)
 
 ```
 #
@@ -198,7 +200,7 @@ execute "lint profile #{profile_name}" do
 end
 ```
 
-**.delivery/build_cookbook/recipes/publish.rb**
+[.delivery/build_cookbook/recipes/publish.rb](https://github.com/jeremymv2/compliance_profile_pipeline/blob/master/cookbooks/linux-baseline_profile/.delivery/build_cookbook/recipes/publish.rb)
 
 ** NOTE ** 
 Please use a secure method of storing / retrieving the token.
