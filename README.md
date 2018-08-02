@@ -10,6 +10,7 @@ The benefits of this pattern are:
 - Consistent method for validation
 - Peer Review and Approval
 - Dedicated Automate Compliance user that publishes
+- Ensure Profile works with specific version of InSpec
 
 The Compliance Profile will be housed inside a Chef Cookbook and sent through the Pipeline.
 In this case I'm demonstrating a Chef Workflow Pipeline. However the principles can
@@ -88,7 +89,7 @@ end
 
 In order to test these changes on a target system we can use [kitchen inspec](https://github.com/inspec/kitchen-inspec)
 
-Modify the `linux-baseline_profile` cookbook's [.kitchen.yml](https://github.com/jeremymv2/compliance_profile_pipeline/blob/master/cookbooks/linux-baseline_profile/.kitchen.yml) and choose a suitable target OS.
+Modify the `linux-baseline_profile` cookbook's [.kitchen.yml](https://github.com/jeremymv2/compliance_profile_pipeline/blob/master/cookbooks/linux-baseline_profile/.kitchen.yml) and choose a suitable target OS / platform.
 
 ```
 verifier:
@@ -260,3 +261,9 @@ delivery review
 Have a Peer review the change.
 
 When approved, your `acme-linux-baseline` Profile will show up in the Compliance Asset store!
+
+## Additional Steps
+
+Should you want more verification prior to uploading the Profile, you could ensure the appropriate
+InSpec OS [package](https://downloads.chef.io/inspec/current) is installed and then run all the `inspec`
+commands as `/opt/inspec/embedded/bin/inspec ..`. Furthermore, you could also ensure an `inspec exec --reporter=json-min:./report.json --diagnose ..` also at least generates a valid json output file `report.json`.
