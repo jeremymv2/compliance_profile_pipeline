@@ -150,7 +150,7 @@ Repeat the above steps until you are confident your Profile is ready to publish.
 
 ## Setting up the Workflow Pipeline
 
-Modify the `linux-baseline_profile` cookbook's [.devliery/config.json](https://github.com/jeremymv2/compliance_profile_pipeline/blob/master/cookbooks/linux-baseline_profile/.delivery/config.json)
+Modify the `linux-baseline_profile` cookbook's [.delivery/config.json](https://github.com/jeremymv2/compliance_profile_pipeline/blob/master/cookbooks/linux-baseline_profile/.delivery/config.json)
 
 ```
 {
